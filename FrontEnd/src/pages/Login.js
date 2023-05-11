@@ -32,7 +32,7 @@ function Login() {
 	})
 
     const loginsubmit = () => {
-        axios.post("http://localhost:9002/Login", userLoginData)
+        axios.post("https://medicare-ai-backend.onrender.com/Login", userLoginData)
         .then(res => {
 			setUser(res.data.user_info)
 			if(rememberMe){

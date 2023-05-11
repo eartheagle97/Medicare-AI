@@ -14,7 +14,7 @@ function InnerProfileHeader(props) {
     const [newProfileData, setNewProfileData] = useState(null)
 
     useEffect(() => {
-        axios.get('http://localhost:9002/GetPatientProfile')
+        axios.get('https://medicare-ai-backend.onrender.com/GetPatientProfile')
             .then(response => {
                 setUserData(response.data)
             }).catch(err => console.log("Error while fetching data"))
@@ -29,7 +29,7 @@ function InnerProfileHeader(props) {
         const formData = new FormData();
         formData.append("photos", file);
         axios
-            .post("http://localhost:9002/profilephoto", formData, {
+            .post("https://medicare-ai-backend.onrender.com/profilephoto", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -48,7 +48,7 @@ function InnerProfileHeader(props) {
 
     // console.log("Await ni uper", userData)
     const SavePhoto = async () => {
-        await axios.put("http://localhost:9002/updatePatientProfile", newProfileData)
+        await axios.put("https://medicare-ai-backend.onrender.com/updatePatientProfile", newProfileData)
             .then(res => {
                 alert(res.data.message)
             })
@@ -67,7 +67,7 @@ function InnerProfileHeader(props) {
                     {/* <!--begin: Pic--> */}
                     <div className="me-7 mb-4">
                         <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                            {userData?.profilephoto ? <img className='object-fit-cover' src={"http://localhost:9002/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
+                            {userData?.profilephoto ? <img className='object-fit-cover' src={"https://medicare-ai-backend.onrender.com/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
 
                             <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
                         </div>

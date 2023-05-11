@@ -168,7 +168,7 @@ function SymptomsChecker() {
 
     const [APIData, setAPIData] = useState();
     useEffect(() => {
-        axios.get('http://localhost:9002/GetDieases')
+        axios.get('https://medicare-ai-backend.onrender.com/GetDieases')
             .then(response => {
                 setAPIData(response.data)
             }).catch(err => console.log("Error while fetching data"))

@@ -34,13 +34,13 @@ function Overview() {
     function axiosReq(reqHeader, profileData) {
         switch (reqHeader) {
             case 'POST':
-                return (axios.post("http://localhost:9002/addPatientProfile", profileData)
+                return (axios.post("https://medicare-ai-backend.onrender.com/addPatientProfile", profileData)
                     .then(res => {
                         alert(res.data.message)
                         window.location.reload();
                     }))
             case 'PUT':
-                return (axios.put("http://localhost:9002/updatePatientProfile", profileData)
+                return (axios.put("https://medicare-ai-backend.onrender.com/updatePatientProfile", profileData)
                     .then(res => {
                         alert(res.data.message)
                         window.location.reload();
@@ -62,7 +62,7 @@ function Overview() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:9002/GetPatientProfile')
+        axios.get('https://medicare-ai-backend.onrender.com/GetPatientProfile')
             .then(response => {
                 const userProfileData = response.data
                 console.log(response.data)

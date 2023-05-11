@@ -60,7 +60,7 @@ function InnerMedicalRecords() {
                                                                     return <div key={i} className='me-5'>
                                                                         <FontAwesomeIcon icon={faFileImage} size='4x' className='w-30px me-3 align-middle' />
                                                                         <div className="ms-1 fw-semibold">
-                                                                            <a href={'http://localhost:9002/' + file} className="fs-6 text-hover-primary fw-bold">{file.split('/').pop().split('-', 1) + '.' + file.split('.').pop()}</a>
+                                                                            <a href={'https://medicare-ai-backend.onrender.com/' + file} className="fs-6 text-hover-primary fw-bold">{file.split('/').pop().split('-', 1) + '.' + file.split('.').pop()}</a>
                                                                         </div>
                                                                     </div>
                                                                 })

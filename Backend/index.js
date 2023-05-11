@@ -553,7 +553,7 @@ app.post('/profilephoto', upload.single('photos'), (req, res) => {
     // Handle the uploaded file as needed (e.g. store it in a database, return metadata, etc.)
     const response = {
       filename: file.filename,
-      imageUrl: `http://localhost:9002/${file.path}`
+      imageUrl: `https://medicare-ai-backend.onrender.com/${file.path}`
     };
     res.set({
       'Cache-Control': 'no-cache, no-store, must-revalidate',

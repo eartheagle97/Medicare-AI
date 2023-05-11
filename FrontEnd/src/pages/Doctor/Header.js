@@ -8,7 +8,7 @@ function Header() {
     const [userData, setUserData] = useState()
 
   useEffect(() => {
-    axios.get('http://localhost:9002/GetDoctorProfile')
+    axios.get('https://medicare-ai-backend.onrender.com/GetDoctorProfile')
         .then(response => {
             setUserData(response.data)
         }).catch(err => console.log("Error while fetching data"))
@@ -59,7 +59,7 @@ function Header() {
                     {/* <!--begin::Menu wrapper--> */}
                     <div className="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                         {/* <img src={ProfilePicture} alt="user" /> */}
-                        {userData?.profilephoto ? <img src={"http://localhost:9002/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
+                        {userData?.profilephoto ? <img src={"https://medicare-ai-backend.onrender.com/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
                     </div>
                     {/* <!--begin::User account menu--> */}
                     <div className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -68,7 +68,7 @@ function Header() {
                             <div className="menu-content d-flex align-items-center px-3">
                                 {/* <!--begin::Avatar--> */}
                                 <div className="symbol symbol-50px me-5">
-                                {userData?.profilephoto ? <img src={"http://localhost:9002/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
+                                {userData?.profilephoto ? <img src={"https://medicare-ai-backend.onrender.com/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
                                 </div>
                                 {/* <!--end::Avatar--> */}
                                 {/* <!--begin::Username--> */}

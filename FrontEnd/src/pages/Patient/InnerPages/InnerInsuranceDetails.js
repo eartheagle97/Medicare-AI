@@ -18,12 +18,12 @@ function InnerInsuranceDetails() {
     function axiosReq(reqHeader, InsuranceData) {
         switch (reqHeader) {
             case 'POST':
-                return (axios.post("http://localhost:9002/addInsuranceData", InsuranceData)
+                return (axios.post("https://medicare-ai-backend.onrender.com/addInsuranceData", InsuranceData)
                     .then(res => {
                         alert(res.data.message)
                     }))
             case 'PUT':
-                return (axios.put("http://localhost:9002/updateInsuranceData", InsuranceData)
+                return (axios.put("https://medicare-ai-backend.onrender.com/updateInsuranceData", InsuranceData)
                     .then(res => {
                         alert(res.data.message)
                     }))
@@ -44,7 +44,7 @@ function InnerInsuranceDetails() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:9002/GetInsuranceData')
+        axios.get('https://medicare-ai-backend.onrender.com/GetInsuranceData')
             .then(response => {
                 const userInsuranceData = response.data
                 setUserData(userInsuranceData)

@@ -40,7 +40,7 @@ function Overview() {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:9002/GetDoctorProfile')
+        axios.get('https://medicare-ai-backend.onrender.com/GetDoctorProfile')
             .then(response => {
                 const userProfileData = response.data
                 setUserData(userProfileData)
@@ -51,13 +51,13 @@ function Overview() {
     function axiosReq(reqHeader, profileData) {
         switch (reqHeader) {
             case 'POST':
-                return (axios.post("http://localhost:9002/addDoctorProfile", profileData)
+                return (axios.post("https://medicare-ai-backend.onrender.com/addDoctorProfile", profileData)
                     .then(res => {
                         alert(res.data.message)
                         window.location.reload();
                     }))
             case 'PUT':
-                return (axios.put("http://localhost:9002/updateDoctorProfile", profileData)
+                return (axios.put("https://medicare-ai-backend.onrender.com/updateDoctorProfile", profileData)
                     .then(res => {
                         alert(res.data.message)
                         window.location.reload();

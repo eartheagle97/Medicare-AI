@@ -28,7 +28,7 @@ function Signup() {
 	const Signup = () => {
 		const { Fullname, Email, Mobilenumber, role, password, reEnterPassword } = userSignupData
 		if (Fullname && Email && Mobilenumber && role && password && (password === reEnterPassword)) {
-			axios.post("http://localhost:9002/Signup", userSignupData)
+			axios.post("https://medicare-ai-backend.onrender.com/Signup", userSignupData)
 				.then(res => {
 					alert(res.data.message)
 					Navigate("/")

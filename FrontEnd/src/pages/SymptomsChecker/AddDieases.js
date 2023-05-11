@@ -35,7 +35,7 @@ function AddDieases() {
 
     const onSubmit = () => {
         
-        axios.post("http://localhost:9002/AddDieases", diseases)
+        axios.post("https://medicare-ai-backend.onrender.com/AddDieases", diseases)
             .then(res => {
                 alert(res.data.message)
                 window.location.reload()

@@ -99,7 +99,7 @@ function InnerGetAppointment({ operationshours }) {
               {/* <!--begin: Pic--> */}
               <div className="me-7 mb-4">
                 <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                  {doctorData?.profilephoto ? <img className='object-fit-cover' src={"http://localhost:9002/media/" + doctorData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
+                  {doctorData?.profilephoto ? <img className='object-fit-cover' src={"https://medicare-ai-backend.onrender.com/media/" + doctorData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
 
                   <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
                 </div>

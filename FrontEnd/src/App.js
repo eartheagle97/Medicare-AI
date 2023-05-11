@@ -21,7 +21,7 @@ import PatientDetails from './pages/Doctor/PatientDetails';
 import PatientMedicalRecords from './pages/Doctor/PatientMedicalRecords';
 import AddDieases from './pages/SymptomsChecker/AddDieases'
 
-axios.defaults.baseURL = 'http://localhost:9002';
+axios.defaults.baseURL = 'https://medicare-ai-backend.onrender.com';
 axios.defaults.withCredentials = true;
 
 function App() {

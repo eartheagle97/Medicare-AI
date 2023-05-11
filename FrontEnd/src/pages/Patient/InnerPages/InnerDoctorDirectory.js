@@ -210,7 +210,7 @@ function InnerDoctorDirectory() {
                     <div className="card">
                       <div className="card-body d-flex flex-center flex-column pt-12 p-9">
                         <div className="symbol symbol-65px symbol-circle mb-5">
-                          {doctor?.profilephoto ? <img className='object-fit-cover' src={"http://localhost:9002/media/" + doctor?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
+                          {doctor?.profilephoto ? <img className='object-fit-cover' src={"https://medicare-ai-backend.onrender.com/media/" + doctor?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
                           <div className="bg-success position-absolute border border-4 border-white h-15px w-15px rounded-circle translate-middle start-100 top-100 ms-n3 mt-n3"></div>
                         </div>
                         <div className="fs-4 text-gray-800 text-hover-primary fw-bolder mb-2 text-capitalize">{doctor?.Fullname}</div>
