@@ -12,6 +12,7 @@ function Login() {
         Email:"",
         password:""
     })
+	const [rememberMe, setRememberMe] = useState(false);
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -21,16 +22,29 @@ function Login() {
         })
     }
 
+	useEffect(() => {
+		const loginToken = localStorage.getItem("UserRole")
+		if(loginToken === "Doctor"){
+			Navigate('Doctor/Profile')
+		} else if (loginToken === 'Patient') {
+			Navigate('Patient/Profile')
+		}
+	})
+
     const loginsubmit = () => {
         axios.post("http://localhost:9002/Login", userLoginData)
         .then(res => {
 			setUser(res.data.user_info)
-			localStorage.setItem("Token", res.data.token)
+			if(rememberMe){
+				localStorage.setItem("Token", res.data.token)
+				localStorage.setItem("UserID", res.data.user_info._id)
+				localStorage.setItem("UserRole", res.data.user_info.role)
+			}
             alert(res.data.message)
 			if(res.data.user_info.role === 'Patient') {
-				Navigate('/Profile')
+				Navigate('Patient/Profile')
 			} else if (res.data.user_info.role === 'Doctor') {
-				Navigate('/Dashboard')
+				Navigate('Doctor/Profile')
 			}
         })
     }
@@ -54,9 +68,13 @@ function Login() {
 							<div className="fv-row mb-10">
 								<div className="d-flex flex-stack mb-2">
 									<label className="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-									<a href="../../demo1/dist/authentication/layouts/dark/password-reset.html" className="link-primary fs-6 fw-bolder">Forgot Password ?</a>
+									<p className="link-primary fs-6 fw-bolder">Forgot Password ?</p>
 								</div>
 								<input className="form-control form-control-lg form-control-solid" type="password" name="password" value={userLoginData.password} onChange={handleChange}  placeholder='Password' autoComplete="off" required />
+							</div>
+							<div className="fv-row mb-5">
+								<input type="checkbox" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)}/>
+									<label className="form-label fw-bolder text-dark fs-6 mx-5">Remember Me</label>
 							</div>
 							<div className="text-center">
 								<button type="button" id="kt_sign_in_submit" onClick={loginsubmit} className="btn btn-lg btn-primary w-100 mb-5">

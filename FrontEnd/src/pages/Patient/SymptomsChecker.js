@@ -5,7 +5,7 @@ import Menu from './Menu'
 import Breadcrumb from './Breadcrumb'
 import CheckSystem from '../SymptomsChecker/SymptomsChecker'
 
-function Profile() {
+function PaCheckSymptoms() {
 	return (
 		<div className="d-flex flex-column flex-root">
 			<div className="page d-flex flex-row flex-column-fluid">
@@ -23,4 +23,4 @@ function Profile() {
 	)
 }
 
-export default Profile
+export default PaCheckSymptoms

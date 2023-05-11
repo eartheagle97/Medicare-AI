@@ -3,13 +3,13 @@ import { UserContext } from '../../Context/Context'
 import { Link } from 'react-router-dom'
 import FadeIn from 'react-fade-in/lib/FadeIn'
 import axios from 'axios'
+import defaultprofilepicture from '../../../assets/images/usersprofile/default_profile_picture.jpg'
 
 function InnerProfileHeader(props) {
 
     const { user } = useContext(UserContext)
     const [userData, setUserData] = useState()
     const [imageUrl, setImageUrl] = useState('')
-    const [isFilePicked, setIsFilePicked] = useState(false)
     const [PhotoEditStatus, setPhotoEditStatus] = useState(false)
     const [newProfileData, setNewProfileData] = useState(null)
 
@@ -25,7 +25,6 @@ function InnerProfileHeader(props) {
     }
 
     const onChangePhoto = (ev) => {
-        setIsFilePicked(true);
         const file = ev.target.files[0];
         const formData = new FormData();
         formData.append("photos", file);
@@ -60,7 +59,6 @@ function InnerProfileHeader(props) {
         setPhotoEditStatus(!PhotoEditStatus)
         window.location.reload(true)
     }
-    // console.log("Props Data", newProfileData)
     return (
         <div className="card mb-5 mb-xl-10">
             <div className="card-body pt-9 pb-0">
@@ -69,7 +67,8 @@ function InnerProfileHeader(props) {
                     {/* <!--begin: Pic--> */}
                     <div className="me-7 mb-4">
                         <div className="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                            <img src={"http://localhost:9002/media/" + userData?.profilephoto} alt="image" />
+                            {userData?.profilephoto ? <img className='object-fit-cover' src={"http://localhost:9002/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
+
                             <div className="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
                         </div>
                     </div>
@@ -106,7 +105,7 @@ function InnerProfileHeader(props) {
                                             </svg>
                                         </span>
                                         {!!user && user.role}</a>
-                                    <a href="#" className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                                    {userData?.Address ? <a href="#" className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                         {/* <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg--> */}
                                         <span className="svg-icon svg-icon-4 me-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -114,7 +113,8 @@ function InnerProfileHeader(props) {
                                                 <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="currentColor" />
                                             </svg>
                                         </span>
-                                        {!!userData && userData.Address}</a>
+                                        {!!userData && userData.Address}
+                                    </a> : ''}
                                     <a href="#" className="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                         {/* <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg--> */}
                                         <span className="svg-icon svg-icon-4 me-1">
@@ -151,10 +151,10 @@ function InnerProfileHeader(props) {
                 {/* <!--begin::Navs--> */}
                 <ul className="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder">
                     <li className="nav-item mt-2">
-                        <Link className={`nav-link text-active-primary ms-0 me-10 py-5 ${props.active === 'Overview' ? 'active' : ''}`} to='/Profile'>Overview</Link>
+                        <Link className={`nav-link text-active-primary ms-0 me-10 py-5 ${props.active === 'Overview' ? 'active' : ''}`} to='/Patient/Profile'>Overview</Link>
                     </li>
                     <li className="nav-item mt-2">
-                        <Link className={`nav-link text-active-primary ms-0 me-10 py-5 ${props.active === 'Insurance' ? 'active' : ''}`} to='/InsuranceDetails'>Insurance</Link>
+                        <Link className={`nav-link text-active-primary ms-0 me-10 py-5 ${props.active === 'Insurance' ? 'active' : ''}`} to='/Patient/InsuranceDetails'>Insurance</Link>
                     </li>
                 </ul>
                 {/* <!--begin::Navs--> */}

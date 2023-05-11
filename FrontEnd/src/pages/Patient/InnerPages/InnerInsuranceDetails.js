@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { UserContext } from '../../Context/Context'
-import ProfilePicture from '../../../assets/images/usersprofile/300-1.jpg'
 import { Link } from 'react-router-dom'
 import InnerProfileHeader from './InnerProfileHeader'
 

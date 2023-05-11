@@ -3,7 +3,7 @@ import axios from 'axios'
 import moment from "moment"
 import { UserContext } from '../../Context/Context'
 import InnerProfileHeader from './InnerProfileHeader'
-
+import Autocomplete from "react-google-autocomplete";
 
 function Overview() {
 
@@ -12,16 +12,24 @@ function Overview() {
     const [profileStatus, setProfileStatus] = useState(false)
     
     const [profileData, setProfileData] = useState({
-        patient_id: user?._id,
-        Fullname: user?.Fullname,
+        patient_id: '',
         date_of_birth: '',
         gender: '',
         Address: '',
-        Mobilenumber: user?.Mobilenumber,
-        Email: user?.Email,
+        Email: '',
         Emergency_name: '',
         Emergency_number: '',
+        profilephoto: ''
     })
+
+    const handleAddressChange = (place) => {
+        if(place) {
+            setProfileData({
+                ...profileData,
+                Address: place.formatted_address,
+            })
+        }
+    }
 
     function axiosReq(reqHeader, profileData) {
         switch (reqHeader) {
@@ -29,11 +37,13 @@ function Overview() {
                 return (axios.post("http://localhost:9002/addPatientProfile", profileData)
                     .then(res => {
                         alert(res.data.message)
+                        window.location.reload();
                     }))
             case 'PUT':
                 return (axios.put("http://localhost:9002/updatePatientProfile", profileData)
                     .then(res => {
                         alert(res.data.message)
+                        window.location.reload();
                     }))
             default:
                 return alert('Error while making axios request');
@@ -55,6 +65,7 @@ function Overview() {
         axios.get('http://localhost:9002/GetPatientProfile')
             .then(response => {
                 const userProfileData = response.data
+                console.log(response.data)
                 setUserData(userProfileData)
                 userProfileData ? setProfileData(userProfileData) : setProfileData(profileData)
             }).catch(err => console.log("Error while fetching data"))
@@ -64,27 +75,25 @@ function Overview() {
         const { name, value } = e.target
         setProfileData({
             ...profileData,
-            [name]: value
+            [name]: value,
+            patient_id: user?._id,
+            Email: user?.Email,
+            Fullname: user?.Fullname,
+            Mobilenumber: user?.Mobilenumber,
         })
-        // console.log(profileData)
     }
+    console.log(profileData)
 
     const editprofile = () => {
         setProfileStatus(!profileStatus)
     }
     
-
     return (
         <div className="post d-flex flex-column-fluid" id="kt_post">
-            {/* <!--begin::Container--> */}
             <div id="kt_content_container" className="container-xxl">
-                {/* <!--begin::Navbar--> */}
                 <InnerProfileHeader profileData={profileData} active='Overview' />
-                {/* <!--end::Navbar--> */}
-                {/* <!--begin::details View--> */}
                 <div className="card mb-5 mb-xl-10" id="kt_profile_details_view">
                     <div className="card-header cursor-pointer">
-
                         <div className="card-title m-0">
                             <h3 className="fw-bolder m-0">Profile</h3>
                         </div>
@@ -99,7 +108,6 @@ function Overview() {
                             !profileData.Address ? <div className="row alert alert-danger">
                                 <div className="d-flex flex-column">
                                     <h6 className="mb-0 text-dark">Your Profile is Incomplete.</h6>
-                                    {/* <span>Please Add Information</span> */}
                                 </div>
                             </div> : ''
                         }
@@ -107,7 +115,7 @@ function Overview() {
                             <label className="col-lg-4 fw-bolder">Fullname</label>
                             <div className="col-lg-8">
                                 {
-                                    profileStatus ? <input type="text" name="Fullname" value={profileData.Fullname} onChange={handleChange} className="form-control form-control-lg form-control-solid" placeholder='First Name, Last Name' /> : <span className="fw-bold fs-6 text-dark">{userData?.Fullname}</span>
+                                    profileStatus ? <input type="text" name="Fullname" value={user.Fullname} onChange={handleChange} className="form-control form-control-lg form-control-solid" placeholder='First Name, Last Name' /> : <span className="fw-bold fs-6 text-dark">{user?.Fullname}</span>
                                 }
                             </div>
                         </div>
@@ -145,7 +153,23 @@ function Overview() {
                             <label className="col-lg-4 fw-bolder">Address</label>
                             <div className="col-lg-8">
                                 {
-                                    profileStatus ? <input type="text" name="Address" value={profileData.Address} onChange={handleChange} className="form-control form-control-lg form-control-solid" placeholder='Street Name, Apt, State, City, Pincode' /> : <span className="fw-bold fs-6 text-dark">{userData?.Address}</span>
+                                    profileStatus ? <Autocomplete
+                                    value={profileData.Address}
+                                    className="form-control form-control-lg form-control-solid"
+                                    apiKey={'AIzaSyD3uKiEqzT_4oVbkCS_pEiUOVyMwaEmkVE'}
+                                    options={{
+                                        types: ['address'],
+                                        componentRestrictions: { country: 'us' },
+                                    }}
+                                    onPlaceSelected={handleAddressChange}
+                                    onChange={(e) => {
+                                        setProfileData({
+                                            ...profileData,
+                                            Address: e.target.value,
+                                        })
+                                    }}
+                                    placeholder="Enter your address"
+                                /> : <span className="fw-bold fs-6 text-dark">{userData?.Address}</span>
                                 }
                             </div>
                         </div>
@@ -154,7 +178,7 @@ function Overview() {
                             </label>
                             <div className="col-lg-8 d-flex align-items-center">
                                 {
-                                    profileStatus ? <input type="text" name="Mobilenumber" value={profileData.Mobilenumber} onChange={handleChange} className="form-control form-control-lg form-control-solid" placeholder='+1xxx-xxx-xxxx' /> : <span className="fw-bold fs-6 text-dark">{userData?.Mobilenumber}</span>
+                                    profileStatus ? <input type="text" name="Mobilenumber" value={user.Mobilenumber} onChange={handleChange} className="form-control form-control-lg form-control-solid" placeholder='+1xxx-xxx-xxxx' /> : <span className="fw-bold fs-6 text-dark">{user?.Mobilenumber}</span>
                                 }
                             </div>
                         </div>
@@ -182,9 +206,7 @@ function Overview() {
                         }
                     </div>
                 </div>
-                {/* <!--end::details View--> */}
             </div>
-            {/* <!--end::Container--> */}
         </div>
     )
 }

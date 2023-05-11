@@ -53291,6 +53291,12 @@ label.rating-label:hover~.rating-label>i {
     color: #fff
 }
 
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+
 [data-kt-sticky-landing-header=on] .landing-header .menu .menu-link.active {
     color: #009ef7;
     background-color: rgba(239, 242, 245, .4)

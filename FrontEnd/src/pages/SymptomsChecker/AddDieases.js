@@ -21,7 +21,9 @@ function AddDieases() {
         console.log("Before Clickeddd", diseases)
     }
     const onAddSymptoms = () => {
-        diseases.symptoms.push(diseases.symp)
+        if (diseases.symp) {
+            diseases.symptoms.push(diseases.symp)
+        }
         diseases.symp = ""
         console.log("After Clickedddd", diseases)
         const getvalue = document.getElementById("floatingInputSymptoms");
@@ -32,7 +34,7 @@ function AddDieases() {
 
 
     const onSubmit = () => {
-
+        
         axios.post("http://localhost:9002/AddDieases", diseases)
             .then(res => {
                 alert(res.data.message)
@@ -47,6 +49,9 @@ function AddDieases() {
                 <input type="text" className="form-control" name='dname' id="floatingInput" onChange={onTitleChange} placeholder="Ex. Common Cold" />
                 <label htmlFor="floatingInput">Name of Diseases</label>
             </div>
+            <p>Symptoms = {diseases.symptoms.map((data, idx) => {
+               return <li key={idx}>{data}</li>
+            })}</p>
             <div className="form-floating mb-7 mt-10">
                 <input type="text" className="form-control" name='symp' id="floatingInputSymptoms" onChange={onTitleChange} placeholder="Ex. Fever" />
                 <label htmlFor="floatingInput">Add Symptoms</label>

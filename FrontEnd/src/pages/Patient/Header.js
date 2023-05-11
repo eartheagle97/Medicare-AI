@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 import Logo from '../../assets/images/logo/logo.png'
-import ProfilePicture from '../../assets/images/usersprofile/300-1.jpg'
+import defaultprofilepicture from '../../assets/images/usersprofile/default_profile_picture.jpg'
 
 function Header() {
+
+    const [userData, setUserData] = useState()
+    useEffect(() => {
+        axios.get('http://localhost:9002/GetPatientProfile')
+            .then(response => {
+                setUserData(response.data)
+            }).catch(err => console.log("Error while fetching data"))
+    }, []);
+
     return (
         <div id="kt_header" className="header align-items-stretch">
             {/* <!--begin::Container--> */}
@@ -23,9 +34,9 @@ function Header() {
                 {/* <!--end::Aside mobile toggle--> */}
                 {/* <!--begin::Mobile logo--> */}
                 <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                    <a href="../../demo1/dist/index.html" className="d-lg-none">
+                    <Link to='/Patient/Profile' className="d-lg-none">
                         <img alt="Logo" src={Logo} className="h-30px logo" />
-                    </a>
+                    </Link>
                 </div>
                 {/* <!--end::Mobile logo--> */}
                 {/* <!--begin::Wrapper--> */}
@@ -47,7 +58,8 @@ function Header() {
                         <div className="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                             {/* <!--begin::Menu wrapper--> */}
                             <div className="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                <img src={ProfilePicture} alt="user" />
+                                {/* <img src={ProfilePicture} alt="user" /> */}
+                                {userData?.profilephoto ? <img src={"http://localhost:9002/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
                             </div>
                             {/* <!--begin::User account menu--> */}
                             <div className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -56,7 +68,7 @@ function Header() {
                                     <div className="menu-content d-flex align-items-center px-3">
                                         {/* <!--begin::Avatar--> */}
                                         <div className="symbol symbol-50px me-5">
-                                            <img alt="Logo" src={ProfilePicture} />
+                                        {userData?.profilephoto ? <img src={"http://localhost:9002/media/" + userData?.profilephoto} alt="image" /> : <img src={defaultprofilepicture} alt="image" />}
                                         </div>
                                         {/* <!--end::Avatar--> */}
                                         {/* <!--begin::Username--> */}
